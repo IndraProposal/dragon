@@ -3,7 +3,7 @@ name: Daily Checkpoint
 on:
   schedule:
     - cron: '20 4 * * *'  # Run every day at 4:20 PM (UTC)
-  workflow_dispatch:  # Add this line to enable manual triggering
+  workflow_dispatch:  # Enables manual triggering
 
 jobs:
   create_checkpoint:
@@ -25,13 +25,9 @@ jobs:
     - name: Get current timestamp
       run: echo "TIMESTAMP=$(date +%s)" >> $GITHUB_ENV
 
-    - name: Create Bitcoin genesis checkpoint
+    - name: Create Blockchain Test genesis checkpoint
       run: |
-        python blockchain.py create_checkpoint "bitcoin" ${{ env.TIMESTAMP }}
-
-    - name: Create Ethereum genesis checkpoint
-      run: |
-        python blockchain.py create_checkpoint "ethereum" ${{ env.TIMESTAMP }}
+        python blockchain-test.py create_checkpoint "bitcoin" ${{ env.TIMESTAMP }}
 
     - name: Commit changes
       run: |
