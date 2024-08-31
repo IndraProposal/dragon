@@ -9,14 +9,16 @@ jobs:
   create_checkpoint:
     runs-on: ubuntu-latest
     steps:
+
+    # Checkout
     - name: Checkout code
       uses: actions/checkout@v3
 
-    - name: Set up Python
-      uses: actions/setup-python@v4
-      with:
-        python-version: '3.x'
+    # Official Setup Python
+    - name: Setup Python
+      uses: actions/setup-python@v5.2.0
 
+    # Install dependencies
     - name: Install dependencies
       run: pip install -r requirements.txt
 
@@ -25,11 +27,11 @@ jobs:
 
     - name: Create Bitcoin genesis checkpoint
       run: |
-        python datm/blockchain.py create_checkpoint "bitcoin" ${{ env.TIMESTAMP }}
+        python blockchain.py create_checkpoint "bitcoin" ${{ env.TIMESTAMP }}
 
     - name: Create Ethereum genesis checkpoint
       run: |
-        python datm/blockchain.py create_checkpoint "ethereum" ${{ env.TIMESTAMP }}
+        python blockchain.py create_checkpoint "ethereum" ${{ env.TIMESTAMP }}
 
     - name: Commit changes
       run: |
