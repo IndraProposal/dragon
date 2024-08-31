@@ -2,7 +2,8 @@ name: Daily Checkpoint
 
 on:
   schedule:
-    - cron: '20 16 * * *'  # Запуск в 4:20 PM каждый день (UTC)
+    - cron: '20 4 * * *'  # Run every day at 4:20 PM (UTC)
+  workflow_dispatch:  # Add this line to enable manual triggering
 
 jobs:
   create_checkpoint:
