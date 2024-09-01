@@ -29,6 +29,13 @@ jobs:
       run: |
         python blockchain-test.py create_checkpoint "bitcoin" ${{ env.TIMESTAMP }}
 
+    - name: Check for changes
+      run: |
+        if [[ -z $(git status --porcelain) ]]; then
+          echo "No changes to commit."
+          exit 0
+        fi
+
     - name: Commit changes
       run: |
         git config --global user.email "action@github.com"
