@@ -27,7 +27,7 @@ jobs:
 
     - name: Create Blockchain Test genesis checkpoint
       run: |
-        python blockchainlib.py
+        python bitcoinlib.py
         
     - name: Check for changes
       run: |
