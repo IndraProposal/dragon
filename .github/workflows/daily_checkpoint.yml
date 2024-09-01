@@ -27,19 +27,17 @@ jobs:
 
     - name: Create Blockchain Test genesis checkpoint
       run: |
-        python blockchain-test.py create_checkpoint "bitcoin" ${{ env.TIMESTAMP }}
-
+        python blockchainlib.py
+        
     - name: Check for changes
       run: |
         if [[ -z $(git status --porcelain) ]]; then
           echo "No changes to commit."
           exit 0
+        else
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add .
+          git commit -m "Daily checkpoint ${{ env.TIMESTAMP }}"
+          git push
         fi
-
-    - name: Commit changes
-      run: |
-        git config --global user.email "action@github.com"
-        git config --global user.name "GitHub Action"
-        git add .
-        git commit -m "Daily checkpoint ${{ env.TIMESTAMP }}"
-        git push
